@@ -14,7 +14,7 @@ float randomFloat(const float low, const float high) {
 int main() {
     // Constants
     int width = 800, height = 600;
-    int numParticles = 50;
+    int numParticles = 1000;
 
     // Create window
     sf::RenderWindow window(sf::VideoMode(width, height), "Particle Simulation");
@@ -53,10 +53,12 @@ int main() {
             particles[i].applyForce(netForce, dt);
             particles[i].updatePosition(dt);
 
-            if (particles[i].x <= 0 || particles[i].x >= static_cast<float>(width) - 10) particles[i].vx *= -1;
-            if (particles[i].y <= 0 || particles[i].y >= static_cast<float>(height) - 10) particles[i].vy *= -1;
+            int radius = 3;
 
-            sf::CircleShape shape(5);
+            if (particles[i].x <= 0 || particles[i].x >= static_cast<float>(width - 2 * radius)) particles[i].vx *= -1;
+            if (particles[i].y <= 0 || particles[i].y >= static_cast<float>(height - 2 * radius)) particles[i].vy *= -1;
+
+            sf::CircleShape shape(radius);
             shape.setFillColor(particles[i].charge > 0 ? sf::Color::Red : sf::Color::Blue);
             shape.setPosition(particles[i].x, particles[i].y);
             window.draw(shape);
