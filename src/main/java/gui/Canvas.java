@@ -30,7 +30,7 @@ public class Canvas extends JPanel {
 
         Graphics2D g2d = buffer.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(new Color(23, 23, 23));
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         for (Drawable p : particles) {

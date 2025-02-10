@@ -64,6 +64,10 @@ public class Particle implements Drawable {
      * Updates position of the particle.
      */
     public void update() {
+        // Limiting max velocity
+        this.vx = Math.min(this.vx, 0.1);
+        this.vy = Math.min(this.vy, 0.1);
+
         this.x += this.vx;
         this.y += this.vy;
 
