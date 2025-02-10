@@ -7,10 +7,10 @@ import java.util.Random;
 // TODO: This one could use strategy pattern later on for diff modes
 public class Simulator {
 
-    private HashSet<SimulatorListener> listeners = new HashSet<>();
+    private final HashSet<SimulatorListener> listeners = new HashSet<>();
 
     private int cycles;
-    private Particle[] particles;
+    private final Particle[] particles;
 
     public Simulator(int particles, int cycles) {
         this.cycles = cycles;
@@ -29,8 +29,9 @@ public class Simulator {
     }
 
     public void run() {
-        new Thread(() -> {
-            while (true) {
+        long startTime = System.currentTimeMillis();
+        var thread = new Thread(() -> {
+            while (cycles-- > 0) {
                 for (var pi : particles) {
                     for (var pj : particles) {
                         pi.interact(pj);
@@ -45,7 +46,10 @@ public class Simulator {
                     throw new RuntimeException(e);
                 }
             }
-        }).start();
+            System.out.println("Simulation finished in " + (System.currentTimeMillis() - startTime) + " ms");
+            System.exit(0);
+        });
+        thread.start();
     }
 
     public void addListener(SimulatorListener listener) {
