@@ -60,11 +60,22 @@ public class Particle {
     public void update() {
         this.x += this.vx;
         this.y += this.vy;
+
+        if (this.x > 800) this.x = 0;
+        if (this.y > 600) this.y = 0;
     }
 
     @Override
     public String toString() {
         return "Particle { x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy + ", c=" + c + " }";
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
 }
