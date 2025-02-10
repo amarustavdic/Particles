@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Particle implements Drawable {
 
-    private double c; // Charge of the particle (positive or negative)
+    private final double c; // Charge of the particle (positive or negative)
     private volatile double x, y; // Position on the 2D plane
     private volatile double vx, vy; // Velocity in x and y directions (speed)
 
@@ -44,7 +44,7 @@ public class Particle implements Drawable {
      * with other particle.
      * @param other Other particle.
      */
-    public void interact(Particle other) {
+    synchronized public void interact(Particle other) {
         double d = distance(other);
         if (d == 0) return; // Avoid self-interaction
         double f = force(other);
@@ -63,10 +63,10 @@ public class Particle implements Drawable {
     /**
      * Updates position of the particle.
      */
-    public void update() {
+    synchronized public void update() {
         // Limiting max velocity
-        this.vx = Math.min(this.vx, 0.1);
-        this.vy = Math.min(this.vy, 0.1);
+        this.vx = Math.max(-0.1, Math.min(this.vx, 0.1));
+        this.vy = Math.max(-0.1, Math.min(this.vy, 0.1));
 
         this.x += this.vx;
         this.y += this.vy;
