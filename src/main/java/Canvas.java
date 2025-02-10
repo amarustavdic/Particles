@@ -10,6 +10,7 @@ public class Canvas extends JPanel {
     private BufferedImage buffer;
 
     public Canvas() {
+        this.particles.addAll(particles);
         setDoubleBuffered(true);
     }
 
@@ -32,7 +33,7 @@ public class Canvas extends JPanel {
 
         g2d.setColor(Color.BLACK);
         for (Particle p : particles) {
-            g2d.fillOval((int) p.getX(), (int) p.getY(), 8, 8);
+            g2d.fillOval((int) p.getX(), (int) p.getY(), 10, 10);
         }
         g2d.dispose();
 

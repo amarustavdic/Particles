@@ -1,54 +1,29 @@
-import javax.swing.*;
-import java.util.Random;
-
 public class Main {
 
     public static void main(String[] args) {
 
+        var simulator = new Simulator(100, 100000);
 
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
+        var view = new View(simulator.getParticles().toArray(new Particle[0]));
+        simulator.addListener(view);
 
-        Canvas canvas = new Canvas();
-        frame.add(canvas);
+        var logger = new Logger();
+        simulator.addListener(logger);
 
-        frame.setVisible(true);
+        simulator.run();
 
-        int n = 20;
+    }
+}
 
-        var rand  = new Random();
-        var particles = new Particle[n];
-        for (int i = 0; i < n; i++) {
-            particles[i] = new Particle(
-                    rand.nextDouble(800),
-                    rand.nextDouble(600),
-                    rand.nextDouble(5) - 2.5,
-                    rand.nextDouble(0.001),
-                    rand.nextDouble(0.001)
-            );
-            canvas.addParticle(particles[i]);
+class Logger implements SimulatorListener{
+
+    private int cycleCount = 0;
+
+    @Override
+    public void onCycleComplete() {
+        cycleCount++;
+        if (cycleCount % 100 == 0) {
+            System.out.println("Cycle completed: " + cycleCount);
         }
-
-
-        new Thread(() -> {
-            while (true) {
-                for (var pi : particles) {
-                    for (var pj : particles) {
-                        pi.interact(pj);
-                        pi.update();
-                    }
-                }
-                canvas.repaint();
-
-                try {
-                    Thread.sleep(1000 / 60);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-
     }
 }
