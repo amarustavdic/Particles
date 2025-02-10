@@ -1,3 +1,5 @@
+package gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Canvas extends JPanel {
 
-    private final List<Particle> particles = new CopyOnWriteArrayList<>();
+    private final List<Drawable> particles = new CopyOnWriteArrayList<>();
     private BufferedImage buffer;
 
     public Canvas() {
@@ -14,7 +16,7 @@ public class Canvas extends JPanel {
         setDoubleBuffered(true);
     }
 
-    public void addParticle(Particle p) {
+    public void addDrawable(Drawable p) {
         particles.add(p);
         repaint();
     }
@@ -31,9 +33,8 @@ public class Canvas extends JPanel {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        g2d.setColor(Color.BLACK);
-        for (Particle p : particles) {
-            g2d.fillOval((int) p.getX(), (int) p.getY(), 10, 10);
+        for (Drawable p : particles) {
+            p.draw(g2d);
         }
         g2d.dispose();
 

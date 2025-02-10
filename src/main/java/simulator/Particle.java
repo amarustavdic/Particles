@@ -1,4 +1,10 @@
-public class Particle {
+package simulator;
+
+import gui.Drawable;
+
+import java.awt.*;
+
+public class Particle implements Drawable {
 
     private double c; // Charge of the particle (positive or negative)
     private volatile double x, y; // Position on the 2D plane
@@ -14,7 +20,7 @@ public class Particle {
 
     /**
      * Calculates Euclidean distance between two Particles.
-     * @param other Other Particle.
+     * @param other Other simulator.Particle.
      * @return Distance between the two.
      */
     public double distance(Particle other) {
@@ -61,21 +67,32 @@ public class Particle {
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x > 800) this.x = 0;
-        if (this.y > 600) this.y = 0;
+        int width = 800;
+        int height = 600;
+
+        // Bounce off left and right walls
+        if (x <= 0 || x >= width - 8) { // 8 is the particle size
+            vx = -vx;
+            x = Math.max(0, Math.min(x, width - 8));
+        }
+
+        // Bounce off top and bottom walls
+        if (y <= 0 || y >= height - 8) {
+            vy = -vy;
+            y = Math.max(0, Math.min(y, height - 8));
+        }
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        var color = (c > 0) ? Color.RED : Color.BLUE;
+        g.setColor(color);
+        g.fillOval((int) x, (int) y, 8, 8);
     }
 
     @Override
     public String toString() {
-        return "Particle { x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy + ", c=" + c + " }";
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
+        return "simulator.Particle { x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy + ", c=" + c + " }";
     }
 
 }

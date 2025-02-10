@@ -1,3 +1,7 @@
+package simulator;
+
+import gui.Drawable;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
