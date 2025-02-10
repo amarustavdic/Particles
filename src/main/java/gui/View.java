@@ -14,18 +14,17 @@ public class View extends JFrame implements SimulatorListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-
-
         canvas = new Canvas();
         for (Drawable particle : particles) {
             canvas.addDrawable(particle);
         }
         canvas.repaint();
         canvas.setPreferredSize(new Dimension(800, 600));
+        canvas.setSize(800, 600);
 
         add(canvas);
-        setVisible(true);
         pack();
+        setVisible(true);
     }
 
     @Override

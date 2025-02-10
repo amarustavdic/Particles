@@ -21,7 +21,7 @@ public class Simulator {
             this.particles[i] = new Particle(
                     rand.nextDouble(800),
                     rand.nextDouble(600),
-                    (i % 2 == 0) ? 10 : -10,
+                    (i % 2 == 0) ? 1 : -1,
                     rand.nextDouble(0.001),
                     rand.nextDouble(0.001)
             );
