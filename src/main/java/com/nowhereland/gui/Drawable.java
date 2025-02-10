@@ -1,4 +1,4 @@
-package gui;
+package com.nowhereland.gui;
 
 import java.awt.*;
 
