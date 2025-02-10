@@ -3,6 +3,7 @@ package com.nowhereland;
 import com.nowhereland.gui.View;
 import com.nowhereland.simulator.Particle;
 import com.nowhereland.simulator.Simulator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,8 +55,11 @@ public class Main {
         // Parsing window size
         if (params.containsKey("-gui")) {
             String[] tokens = params.get("-gui").split("x");
-            width = Integer.parseInt(tokens[0]);
-            height = Integer.parseInt(tokens[1]);
+            System.out.println(params.get("-gui"));
+            if (tokens.length == 2) {
+                width = Integer.parseInt(tokens[0]);
+                height = Integer.parseInt(tokens[1]);
+            }
         }
 
         // Parsing mode
@@ -67,9 +71,9 @@ public class Main {
         c = Integer.parseInt(params.get("-c"));
 
 
-        System.out.println(
-                "Width: " + width + ", Height: " + height + ", Mode: " + mode + ", N: " + n + ", C: " + c
-        );
+//        System.out.println(
+//                "Width: " + width + ", Height: " + height + ", Mode: " + mode + ", N: " + n + ", C: " + c
+//        );
 
 
         var simulator = new Simulator(n, c);
