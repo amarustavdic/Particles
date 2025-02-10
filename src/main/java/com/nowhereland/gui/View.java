@@ -1,6 +1,6 @@
-package gui;
+package com.nowhereland.gui;
 
-import simulator.SimulatorListener;
+import com.nowhereland.simulator.SimulatorListener;
 
 import javax.swing.*;
 import java.awt.*;

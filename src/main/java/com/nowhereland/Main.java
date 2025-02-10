@@ -1,6 +1,8 @@
-import gui.View;
-import simulator.Particle;
-import simulator.Simulator;
+package com.nowhereland;
+
+import com.nowhereland.gui.View;
+import com.nowhereland.simulator.Particle;
+import com.nowhereland.simulator.Simulator;
 
 public class Main {
 

@@ -1,6 +1,6 @@
-package simulator;
+package com.nowhereland.simulator;
 
-import gui.Drawable;
+import com.nowhereland.gui.Drawable;
 
 import java.awt.*;
 
@@ -20,7 +20,7 @@ public class Particle implements Drawable {
 
     /**
      * Calculates Euclidean distance between two Particles.
-     * @param other Other simulator.Particle.
+     * @param other Other com.nowhereland.amar.simulator.Particle.
      * @return Distance between the two.
      */
     public double distance(Particle other) {
@@ -96,7 +96,7 @@ public class Particle implements Drawable {
 
     @Override
     public String toString() {
-        return "simulator.Particle { x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy + ", c=" + c + " }";
+        return "com.nowhereland.amar.simulator.Particle { x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy + ", c=" + c + " }";
     }
 
 }
