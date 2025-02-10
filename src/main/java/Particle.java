@@ -1,8 +1,8 @@
 public class Particle {
 
     private double c; // Charge of the particle (positive or negative)
-    private double x, y; // Position on the 2D plane
-    private double vx, vy; // Velocity in x and y directions (speed)
+    private volatile double x, y; // Position on the 2D plane
+    private volatile double vx, vy; // Velocity in x and y directions (speed)
 
     public Particle(double x, double y, double c, double vx, double vy) {
         this.x = x;
@@ -53,6 +53,14 @@ public class Particle {
         // Update velocity
         this.vx += direction * f * dx;
         this.vy += direction * f * dy;
+    }
+
+    /**
+     * Updates position of the particle.
+     */
+    public void update() {
+        this.x += this.vx;
+        this.y += this.vy;
     }
 
     @Override

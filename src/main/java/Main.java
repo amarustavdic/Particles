@@ -6,15 +6,33 @@ public class Main {
 
         Random rand = new Random();
 
-        var p1 = new Particle(1, 1, 1, 1, 1);
-        var p2 = new Particle(2, 1, 1, 1, 1);
+        int n = 1000;
 
-        System.out.println(p1);
-        System.out.println(p2);
+        var particles = new Particle[n];
+        for (int i = 0; i < n; i++) {
+            particles[i] = new Particle(
+                    rand.nextDouble(100),
+                    rand.nextDouble(100),
+                    (i % 2 > 0) ? -1 : 1,
+                    rand.nextDouble(2),
+                    rand.nextDouble(2)
+            );
+        }
 
-        p1.interact(p2);
+        System.out.println(particles[0]);
 
-        System.out.println(p1);
+        int cycles = 10;
+        while (cycles-- > 0) {
+            for (var pi : particles) {
+                for (var pj : particles) {
+                    pi.interact(pj);
+                    pi.update();
+                }
+            }
+        }
+
+        System.out.println(particles[0]);
+
 
     }
 }
