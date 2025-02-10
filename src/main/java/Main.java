@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var simulator = new Simulator(100, 100000);
+        var simulator = new Simulator(30, 100000);
 
         var view = new View(simulator.getParticles().toArray(new Particle[0]));
         simulator.addListener(view);
