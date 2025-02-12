@@ -4,7 +4,12 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.*; // Import OpenGL bindings
 
-public class GUI {
+public class GUI implements Runnable {
+
+    private int width = 800;
+    private int height = 600;
+
+    private Thread thread;
 
     public GUI() {
 
@@ -18,8 +23,8 @@ public class GUI {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        // Create a window (800x600)
-        long window = glfwCreateWindow(800, 600, "LearnOpenGL", 0, 0);
+        // Create a window
+        long window = glfwCreateWindow(width, height, "LearnOpenGL", 0, 0);
         if (window == 0) {
             System.out.println("Failed to create the GLFW window.");
             glfwTerminate();
@@ -33,13 +38,24 @@ public class GUI {
         createCapabilities();
 
         // Set the viewport to match the window dimensions
-        glViewport(0, 0, 800, 600);
+        glViewport(0, 0, width, height);
 
         // Set the framebuffer size callback
-        glfwSetFramebufferSizeCallback(window, (win, width, height) -> glViewport(0, 0, width, height));
+        glfwSetFramebufferSizeCallback(window, (win, newWidth, newHeight) -> {
+            width = newWidth;  // Update global width
+            height = newHeight; // Update global height
+            glViewport(0, 0, width, height);
+        });
 
         // Render loop
         while (!glfwWindowShouldClose(window)) {
+            // input
+            processInput(window);
+
+            // rendering commands here
+            // ...
+
+            // check and call events and swap the buffers
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
@@ -47,6 +63,17 @@ public class GUI {
         glfwTerminate();
     }
 
+    private void processInput(long window) {
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window, true);
+        }
+    }
+
+    // TODO: Later would like this to run on separate thread
+    @Override
+    public void run() {
+
+    }
 
     public static void main(String[] args) {
         new GUI();
